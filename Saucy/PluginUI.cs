@@ -84,11 +84,11 @@ namespace Saucy
 
             ImGui.SetNextWindowSize(new Vector2(520, 420), ImGuiCond.FirstUseEver);
             //ImGui.SetNextWindowSizeConstraints(new Vector2(520, 420), new Vector2(float.MaxValue, float.MaxValue));
-            if (ImGui.Begin("Saucy Config", ref visible))
+            if (ImGui.Begin("Saucy 配置", ref visible))
             {
-                if (ImGui.BeginTabBar("###Games", ImGuiTabBarFlags.Reorderable))
+                if (ImGui.BeginTabBar("###游戏", ImGuiTabBarFlags.Reorderable))
                 {
-                    if (ImGui.BeginTabItem("Cuff-a-Cur"))
+                    if (ImGui.BeginTabItem("重击伽美蛇"))
                     {
                         DrawCufTab();
                         ImGui.EndTabItem();
@@ -97,7 +97,7 @@ namespace Saucy
                     if (Saucy.openTT)
                     {
                         Saucy.openTT = false;
-                        if (ImGuiEx.BeginTabItem("Triple Triad", ImGuiTabItemFlags.SetSelected))
+                        if (ImGuiEx.BeginTabItem("九宫幻卡", ImGuiTabItemFlags.SetSelected))
                         {
                             DrawTriadTab();
                             ImGui.EndTabItem();
@@ -105,27 +105,27 @@ namespace Saucy
                     }
                     else
                     {
-                        if (ImGui.BeginTabItem("Triple Triad"))
+                        if (ImGui.BeginTabItem("九宫幻卡"))
                         {
                             DrawTriadTab();
                             ImGui.EndTabItem();
                         }
                     }
 
-                    if (ImGui.BeginTabItem("Other Games"))
+                    if (ImGui.BeginTabItem("其他游戏"))
                     {
                         DrawOtherGamesTab();
                         ImGui.EndTabItem();
                     }
 
 
-                    if (ImGui.BeginTabItem("Stats"))
+                    if (ImGui.BeginTabItem("统计数据"))
                     {
                         DrawStatsTab();
                         ImGui.EndTabItem();
                     }
 
-                    if (ImGui.BeginTabItem("About"))
+                    if (ImGui.BeginTabItem("关于"))
                     {
                         AboutTab.Draw("Saucy");
                         ImGui.EndTabItem();
@@ -137,12 +137,13 @@ namespace Saucy
             ImGui.End();
         }
 
+
         private void DrawOtherGamesTab()
         {
-           //ImGui.Checkbox("Enable Air Force One Module", ref AirForceOneModule.ModuleEnabled);
-            
+            //ImGui.Checkbox("启用 Air Force One 模块", ref AirForceOneModule.ModuleEnabled);
+
             var sliceIsRightEnabled = SliceIsRightModule.ModuleEnabled;
-            if (ImGui.Checkbox("Enable Slice is Right Module", ref sliceIsRightEnabled))
+            if (ImGui.Checkbox("启用重击伽美蛇模块", ref sliceIsRightEnabled))
             {
                 SliceIsRightModule.ModuleEnabled = sliceIsRightEnabled;
                 Saucy.Config.Save();
@@ -151,14 +152,14 @@ namespace Saucy
 
         private void DrawStatsTab()
         {
-            if (ImGui.BeginTabBar("Stats"))
+            if (ImGui.BeginTabBar("统计数据"))
             {
-                ImGui.Columns(3, "stats", false);
+                ImGui.Columns(3, "统计", false);
                 ImGui.NextColumn();
-                ImGuiEx.CenterColumnText(ImGuiColors.ParsedGold, "SAUCY STATS", true);
+                ImGuiEx.CenterColumnText(ImGuiColors.ParsedGold, "SAUCY 统计数据", true);
                 ImGui.Columns(1);
 
-                if (ImGui.BeginTabItem("Lifetime"))
+                if (ImGui.BeginTabItem("所有"))
                 {
                     this.DrawStatsTab(Saucy.Config.Stats, out bool reset);
 
@@ -170,7 +171,7 @@ namespace Saucy
 
                     ImGui.EndTabItem();
                 }
-                if (ImGui.BeginTabItem("Session"))
+                if (ImGui.BeginTabItem("会话"))
                 {
                     this.DrawStatsTab(Saucy.Config.SessionStats, out bool reset);
                     if (reset)
@@ -182,17 +183,18 @@ namespace Saucy
             }
         }
 
+
         private void DrawStatsTab(Stats stat, out bool reset)
         {
-            if (ImGui.BeginTabBar("Games"))
+            if (ImGui.BeginTabBar("游戏"))
             {
-                if (ImGui.BeginTabItem("Cuff-a-Cur"))
+                if (ImGui.BeginTabItem("重击伽美蛇"))
                 {
                     DrawCuffStats(stat);
                     ImGui.EndTabItem();
                 }
 
-                if (ImGui.BeginTabItem("Triple Triad"))
+                if (ImGui.BeginTabItem("九宫幻卡"))
                 {
                     DrawTTStats(stat);
                     ImGui.EndTabItem();
@@ -200,14 +202,14 @@ namespace Saucy
 
                 ImGui.EndTabBar();
             }
-            
+
             ImGui.PushItemWidth(ImGui.GetContentRegionAvail().X);
-            reset = ImGui.Button("RESET STATS (Hold Ctrl)", new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetContentRegionAvail().Y)) && ImGui.GetIO().KeyCtrl;
+            reset = ImGui.Button("重置统计数据（按住 Ctrl）", new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetContentRegionAvail().Y)) && ImGui.GetIO().KeyCtrl;
         }
 
         private void DrawCuffStats(Stats stat)
         {
-            ImGui.BeginChild("Cuff Stats", new Vector2(0, ImGui.GetContentRegionAvail().Y - 30f), true);
+            ImGui.BeginChild("Cuff 统计", new Vector2(0, ImGui.GetContentRegionAvail().Y - 30f), true);
             ImGui.Columns(3, null, false);
             ImGui.NextColumn();
             ImGuiEx.CenterColumnText(ImGuiColors.DalamudRed, "Cuff-a-cur", true);
@@ -215,7 +217,7 @@ namespace Saucy
             ImGui.NextColumn();
             ImGui.NextColumn();
             ImGui.NextColumn();
-            ImGuiEx.CenterColumnText("Games Played", true);
+            ImGuiEx.CenterColumnText("游戏次数", true);
             ImGui.NextColumn();
             ImGui.NextColumn();
             ImGui.NextColumn();
@@ -223,11 +225,11 @@ namespace Saucy
             ImGui.NextColumn();
             ImGui.NextColumn();
             ImGui.Spacing();
-            ImGuiEx.CenterColumnText("BRUISING!", true);
+            ImGuiEx.CenterColumnText("激烈！", true);
             ImGui.NextColumn();
-            ImGuiEx.CenterColumnText("PUNISHING!!", true);
+            ImGuiEx.CenterColumnText("猛烈！！", true);
             ImGui.NextColumn();
-            ImGuiEx.CenterColumnText("BRUTAL!!!!", true);
+            ImGuiEx.CenterColumnText("残酷！！！", true);
             ImGui.NextColumn();
             ImGuiEx.CenterColumnText($"{stat.CuffBruisings.ToString("N0")}");
             ImGui.NextColumn();
@@ -236,7 +238,7 @@ namespace Saucy
             ImGuiEx.CenterColumnText($"{stat.CuffBrutals.ToString("N0")}");
             ImGui.NextColumn();
             ImGui.NextColumn();
-            ImGuiEx.CenterColumnText("MGP Won", true);
+            ImGuiEx.CenterColumnText("赢得MGP", true);
             ImGui.NextColumn();
             ImGui.NextColumn();
             ImGui.NextColumn();
@@ -245,17 +247,18 @@ namespace Saucy
             ImGui.EndChild();
         }
 
+
         private void DrawTTStats(Stats stat)
         {
-            ImGui.BeginChild("TT Stats", new Vector2(0, ImGui.GetContentRegionAvail().Y - 30f), true);
+            ImGui.BeginChild("TT 统计", new Vector2(0, ImGui.GetContentRegionAvail().Y - 30f), true);
             ImGui.Columns(3, null, false);
             ImGui.NextColumn();
-            ImGuiEx.CenterColumnText(ImGuiColors.DalamudRed, "Triple Triad", true);
+            ImGuiEx.CenterColumnText(ImGuiColors.DalamudRed, "九宫幻卡", true);
             ImGuiHelpers.ScaledDummy(10f);
             ImGui.NextColumn();
             ImGui.NextColumn();
             ImGui.NextColumn();
-            ImGuiEx.CenterColumnText("Games Played", true);
+            ImGuiEx.CenterColumnText("游戏次数", true);
             ImGui.NextColumn();
             ImGui.NextColumn();
             ImGui.NextColumn();
@@ -263,11 +266,11 @@ namespace Saucy
             ImGui.NextColumn();
             ImGui.NextColumn();
             ImGui.Spacing();
-            ImGuiEx.CenterColumnText("Wins", true);
+            ImGuiEx.CenterColumnText("胜利", true);
             ImGui.NextColumn();
-            ImGuiEx.CenterColumnText("Losses", true);
+            ImGuiEx.CenterColumnText("失败", true);
             ImGui.NextColumn();
-            ImGuiEx.CenterColumnText("Draws", true);
+            ImGuiEx.CenterColumnText("平局", true);
             ImGui.NextColumn();
             ImGuiEx.CenterColumnText($"{stat.GamesWonWithSaucy.ToString("N0")}");
             ImGui.NextColumn();
@@ -275,13 +278,13 @@ namespace Saucy
             ImGui.NextColumn();
             ImGuiEx.CenterColumnText($"{stat.GamesDrawnWithSaucy.ToString("N0")}");
             ImGui.NextColumn();
-            ImGuiEx.CenterColumnText("Win Rate", true);
+            ImGuiEx.CenterColumnText("胜率", true);
             ImGui.NextColumn();
-            ImGuiEx.CenterColumnText("Cards Won", true);
+            ImGuiEx.CenterColumnText("获得卡片", true);
             ImGui.NextColumn();
             if (stat.NPCsPlayed.Count > 0)
             {
-                ImGuiEx.CenterColumnText("Most Played NPC", true);
+                ImGuiEx.CenterColumnText("对战最多的NPC", true);
                 ImGui.NextColumn();
             }
             else
@@ -304,20 +307,20 @@ namespace Saucy
             if (stat.NPCsPlayed.Count > 0)
             {
                 ImGuiEx.CenterColumnText($"{stat.NPCsPlayed.OrderByDescending(x => x.Value).First().Key}");
-                ImGuiEx.CenterColumnText($"{stat.NPCsPlayed.OrderByDescending(x => x.Value).First().Value.ToString("N0")} times");
+                ImGuiEx.CenterColumnText($"{stat.NPCsPlayed.OrderByDescending(x => x.Value).First().Value.ToString("N0")} 次");
                 ImGui.NextColumn();
                 ImGui.NextColumn();
                 ImGui.NextColumn();
             }
 
             ImGui.NextColumn();
-            ImGuiEx.CenterColumnText("MGP Won", true);
+            ImGuiEx.CenterColumnText("赢得MGP", true);
             ImGui.NextColumn();
-            ImGuiEx.CenterColumnText("Total Card Drop Value", true);
+            ImGuiEx.CenterColumnText("总卡片掉落价值", true);
             ImGui.NextColumn();
             if (stat.CardsWon.Count > 0)
             {
-                ImGuiEx.CenterColumnText("Most Won Card", true);
+                ImGuiEx.CenterColumnText("赢得最多的卡片", true);
             }
             ImGui.NextColumn();
             ImGuiEx.CenterColumnText($"{stat.MGPWon.ToString("N0")} MGP");
@@ -330,12 +333,13 @@ namespace Saucy
                 ImGui.NextColumn();
                 ImGui.NextColumn();
                 ImGui.NextColumn();
-                ImGuiEx.CenterColumnText($"{stat.CardsWon.OrderByDescending(x => x.Value).First().Value.ToString("N0")} times");
+                ImGuiEx.CenterColumnText($"{stat.CardsWon.OrderByDescending(x => x.Value).First().Value.ToString("N0")} 次");
             }
 
             ImGui.Columns(1);
             ImGui.EndChild();
         }
+
 
         private int GetDroppedCardValues(Stats stat)
         {
@@ -350,10 +354,10 @@ namespace Saucy
         {
             bool enabled = TriadAutomater.ModuleEnabled;
 
-            ImGui.TextWrapped(@"How to use: Challenge an NPC you wish to play cards with. Once you have initiated the challenge, click ""Enable Triad Module"".");
+            ImGui.TextWrapped(@"如何使用：挑战你想要玩卡牌的NPC。一旦开始挑战，点击""启用九宫幻卡模块""。");
             ImGui.Separator();
 
-            if (ImGui.Checkbox("Enable Triad Module", ref enabled))
+            if (ImGui.Checkbox("启用九宫幻卡模块", ref enabled))
             {
                 TriadAutomater.ModuleEnabled = enabled;
 
@@ -363,9 +367,9 @@ namespace Saucy
 
             bool autoOpen = configuration.OpenAutomatically;
 
-            if (ImGui.Checkbox("Open Saucy When Challenging an NPC", ref autoOpen))
+            if (ImGui.Checkbox("挑战NPC时自动打开Saucy", ref autoOpen))
             {
-                configuration.OpenAutomatically= autoOpen;
+                configuration.OpenAutomatically = autoOpen;
                 configuration.Save();
             }
 
@@ -386,8 +390,8 @@ namespace Saucy
                     {
                         preview = selectedDeck >= 0 ? Saucy.TTSolver.profileGS.GetPlayerDecks()[selectedDeck].name : string.Empty;
                     }
-                   
-                    if (ImGui.BeginCombo("Select Deck", preview))
+
+                    if (ImGui.BeginCombo("选择套牌", preview))
                     {
                         if (ImGui.Selectable(""))
                         {
@@ -398,7 +402,6 @@ namespace Saucy
                         {
                             if (deck is null) continue;
                             var index = deck.id;
-                            //var index = Saucy.TTSolver.preGameDecks.Where(x => x.Value == deck).First().Key;
                             if (ImGui.Selectable(deck.name, index == selectedDeck))
                             {
                                 configuration.SelectedDeckIndex = index;
@@ -412,7 +415,7 @@ namespace Saucy
                     ImGui.SameLine();
                 }
                 bool useAutoDeck = Saucy.Config.UseRecommendedDeck;
-                if (ImGui.Checkbox("Automatically choose your deck with the best win chance", ref useAutoDeck))
+                if (ImGui.Checkbox("自动选择胜率最高的套牌", ref useAutoDeck))
                 {
                     Saucy.Config.UseRecommendedDeck = useAutoDeck;
                     Saucy.Config.Save();
@@ -420,23 +423,22 @@ namespace Saucy
             }
             else
             {
-                ImGui.TextWrapped("Please initiate a challenge with an NPC to populate your deck list.");
+                ImGui.TextWrapped("请先与NPC开始挑战来填充你的套牌列表。");
             }
 
-            if (ImGui.Checkbox("Play X Amount of Times", ref TriadAutomater.PlayXTimes) && (TriadAutomater.NumberOfTimes <= 0 || TriadAutomater.PlayUntilCardDrops || TriadAutomater.PlayUntilAllCardsDropOnce))
+            if (ImGui.Checkbox("玩X次", ref TriadAutomater.PlayXTimes) && (TriadAutomater.NumberOfTimes <= 0 || TriadAutomater.PlayUntilCardDrops || TriadAutomater.PlayUntilAllCardsDropOnce))
             {
                 TriadAutomater.NumberOfTimes = 1;
                 TriadAutomater.PlayUntilCardDrops = false;
                 TriadAutomater.PlayUntilAllCardsDropOnce = false;
             }
 
-            if (ImGui.Checkbox("Play Until Any Cards Drop", ref TriadAutomater.PlayUntilCardDrops) && (TriadAutomater.NumberOfTimes <= 0 || TriadAutomater.PlayXTimes || TriadAutomater.PlayUntilAllCardsDropOnce))
+            if (ImGui.Checkbox("直到任意卡牌掉落", ref TriadAutomater.PlayUntilCardDrops) && (TriadAutomater.NumberOfTimes <= 0 || TriadAutomater.PlayXTimes || TriadAutomater.PlayUntilAllCardsDropOnce))
             {
                 TriadAutomater.NumberOfTimes = 1;
                 TriadAutomater.PlayXTimes = false;
                 TriadAutomater.PlayUntilAllCardsDropOnce = false;
             }
-
 
             if (GameNpcDB.Get().mapNpcs.TryGetValue(Saucy.TTSolver.preGameNpc?.Id ?? -1, out var npcInfo))
             {
@@ -447,7 +449,7 @@ namespace Saucy
                 CurrentNPC = null;
             }
 
-            if (ImGui.Checkbox($"Play Until All Cards Drop from NPC at Least X Times {(CurrentNPC is null ? "" : $"({TriadNpcDB.Get().FindByID(CurrentNPC.npcId).Name.GetLocalized()})")}", ref TriadAutomater.PlayUntilAllCardsDropOnce))
+            if (ImGui.Checkbox($"直到NPC掉落所有卡牌至少X次 {(CurrentNPC is null ? "" : $"({TriadNpcDB.Get().FindByID(CurrentNPC.npcId).Name.GetLocalized()})")}", ref TriadAutomater.PlayUntilAllCardsDropOnce))
             {
                 TriadAutomater.TempCardsWonList.Clear();
                 TriadAutomater.PlayUntilCardDrops = false;
@@ -460,7 +462,7 @@ namespace Saucy
             if (TriadAutomater.PlayUntilAllCardsDropOnce)
             {
                 ImGui.SameLine();
-                if (ImGui.Checkbox("Only Unobtained Cards", ref onlyUnobtained))
+                if (ImGui.Checkbox("仅未获得的卡牌", ref onlyUnobtained))
                 {
                     TriadAutomater.TempCardsWonList.Clear();
                     Saucy.Config.OnlyUnobtainedCards = onlyUnobtained;
@@ -485,17 +487,16 @@ namespace Saucy
                 if (Saucy.Config.OnlyUnobtainedCards && TriadAutomater.TempCardsWonList.Count == 0)
                 {
                     ImGui.PushStyleColor(ImGuiCol.Text, ImGuiColors.DalamudRed);
-                    ImGui.TextWrapped($@"You already have all cards from this NPC. This feature will not work until you untick ""Only Unobtained Cards"" or choose a different NPC.");
+                    ImGui.TextWrapped("你已经从这个NPC那里获得了所有卡牌。除非取消勾选“仅未获得的卡牌”或选择不同的NPC，否则此功能将无法使用。");
                     ImGui.PopStyleColor();
                 }
                 ImGui.Unindent();
             }
 
-
             if (TriadAutomater.PlayXTimes || TriadAutomater.PlayUntilCardDrops || TriadAutomater.PlayUntilAllCardsDropOnce)
             {
                 ImGui.PushItemWidth(150f);
-                ImGui.Text("How many times:");
+                ImGui.Text("游戏次数:");
                 ImGui.SameLine();
 
                 if (ImGui.InputInt("###NumberOfTimes", ref TriadAutomater.NumberOfTimes))
@@ -504,12 +505,12 @@ namespace Saucy
                         TriadAutomater.NumberOfTimes = 1;
                 }
 
-                ImGui.Checkbox("Log out after finishing", ref TriadAutomater.LogOutAfterCompletion);
+                ImGui.Checkbox("完成后登出", ref TriadAutomater.LogOutAfterCompletion);
 
                 bool playSound = Saucy.Config.PlaySound;
 
                 ImGui.Columns(2, null, false);
-                if (ImGui.Checkbox("Play sound upon completion", ref playSound))
+                if (ImGui.Checkbox("完成后播放声音", ref playSound))
                 {
                     Saucy.Config.PlaySound = playSound;
                     Saucy.Config.Save();
@@ -518,7 +519,7 @@ namespace Saucy
                 if (playSound)
                 {
                     ImGui.NextColumn();
-                    ImGui.Text("Select Sound");
+                    ImGui.Text("选择声音");
                     if (ImGui.BeginCombo("###SelectSound", Saucy.Config.SelectedSound))
                     {
                         string path = Path.Combine(Svc.PluginInterface.AssemblyLocation.Directory.FullName, "Sounds");
@@ -534,31 +535,32 @@ namespace Saucy
                         ImGui.EndCombo();
                     }
 
-                    if (ImGui.Button("Open Sound Folder"))
+                    if (ImGui.Button("打开声音文件夹"))
                     {
                         Process.Start("explorer.exe", @$"{Path.Combine(Svc.PluginInterface.AssemblyLocation.Directory.FullName, "Sounds")}");
                     }
-                    ImGuiComponents.HelpMarker("Drop any MP3 files into the sound folder to add your own custom sounds.");
+                    ImGuiComponents.HelpMarker("将任何MP3文件放入声音文件夹以添加您自己的自定义声音。");
                 }
                 ImGui.Columns(1);
             }
         }
 
+
         public unsafe void DrawCufTab()
         {
             bool enabled = CufModule.ModuleEnabled;
 
-            ImGui.TextWrapped(@"How to use: Click ""Enable Cuff Module"" then walk up to a Cuff-a-cur machine.");
+            ImGui.TextWrapped(@"如何使用：点击""启用重击伽美蛇模块""然后走到重击伽美蛇机器前。");
             ImGui.Separator();
 
-            if (ImGui.Checkbox("Enable Cuff Module", ref enabled))
+            if (ImGui.Checkbox("启用重击伽美蛇模块", ref enabled))
             {
                 CufModule.ModuleEnabled = enabled;
                 if (enabled && TriadAutomater.ModuleEnabled)
                     TriadAutomater.ModuleEnabled = false;
             }
 
-            if (ImGui.Checkbox("Play X Amount of Times", ref TriadAutomater.PlayXTimes) && TriadAutomater.NumberOfTimes <= 0)
+            if (ImGui.Checkbox("玩X次", ref TriadAutomater.PlayXTimes) && TriadAutomater.NumberOfTimes <= 0)
             {
                 TriadAutomater.NumberOfTimes = 1;
             }
@@ -566,21 +568,21 @@ namespace Saucy
             if (TriadAutomater.PlayXTimes)
             {
                 ImGui.PushItemWidth(150f);
-                ImGui.Text("How many times:");
+                ImGui.Text("次数：");
                 ImGui.SameLine();
 
-                if (ImGui.InputInt("###NumberOfTimes", ref TriadAutomater.NumberOfTimes))
+                if (ImGui.InputInt("###次数", ref TriadAutomater.NumberOfTimes))
                 {
                     if (TriadAutomater.NumberOfTimes <= 0)
                         TriadAutomater.NumberOfTimes = 1;
                 }
 
-                ImGui.Checkbox("Log out after finishing", ref TriadAutomater.LogOutAfterCompletion);
+                ImGui.Checkbox("完成后登出", ref TriadAutomater.LogOutAfterCompletion);
 
                 bool playSound = Saucy.Config.PlaySound;
 
                 ImGui.Columns(2, null, false);
-                if (ImGui.Checkbox("Play sound upon completion", ref playSound))
+                if (ImGui.Checkbox("完成后播放声音", ref playSound))
                 {
                     Saucy.Config.PlaySound = playSound;
                     Saucy.Config.Save();
@@ -589,8 +591,8 @@ namespace Saucy
                 if (playSound)
                 {
                     ImGui.NextColumn();
-                    ImGui.Text("Select Sound");
-                    if (ImGui.BeginCombo("###SelectSound", Saucy.Config.SelectedSound))
+                    ImGui.Text("选择声音");
+                    if (ImGui.BeginCombo("###选择声音", Saucy.Config.SelectedSound))
                     {
                         string path = Path.Combine(Svc.PluginInterface.AssemblyLocation.Directory.FullName, "Sounds");
                         foreach (var file in new DirectoryInfo(path).GetFiles())
@@ -605,14 +607,15 @@ namespace Saucy
                         ImGui.EndCombo();
                     }
 
-                    if (ImGui.Button("Open Sound Folder"))
+                    if (ImGui.Button("打开声音文件夹"))
                     {
                         Process.Start("explorer.exe", @$"{Path.Combine(Svc.PluginInterface.AssemblyLocation.Directory.FullName, "Sounds")}");
                     }
-                    ImGuiComponents.HelpMarker("Drop any MP3 files into the sound folder to add your own custom sounds.");
+                    ImGuiComponents.HelpMarker("将任何MP3文件拖入声音文件夹，以添加您自己的自定义声音。");
                 }
                 ImGui.Columns(1);
             }
         }
+
     }
 }

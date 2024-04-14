@@ -6,10 +6,10 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<TargetFramework>net7.0-windows</TargetFramework>
+		<TargetFramework>net8.0-windows7.0</TargetFramework>
 		<Platforms>x64</Platforms>
 		<LangVersion>preview</LangVersion>
-		<DalamudDevPlugins>$(appdata)\XIVLauncher\devPlugins\Saucy\</DalamudDevPlugins>
+		<DalamudDevPlugins></DalamudDevPlugins>
 		<DalamudLibPath>$(appdata)\XIVLauncher\addon\Hooks\dev\</DalamudLibPath>
 		<DalamudPluginPath>$(appdata)\XIVLauncher\installedPlugins\Saucy\$(version)</DalamudPluginPath>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -33,7 +33,7 @@
 		<PackageReference Include="DalamudPackager" Version="2.1.10" />
 		<PackageReference Include="NAudio" Version="2.1.0" />
 		<PackageReference Include="NAudio.Lame" Version="2.0.1" />
-		<ProjectReference Include="..\ClickLib\ClickLib\ClickLib.csproj" />
+		<ProjectReference Include="..\..\ClickLib\ClickLib\ClickLib.csproj" />
 		<ProjectReference Include="..\ECommons\ECommons\ECommons.csproj" />
 		<ProjectReference Include="..\PunishLib\PunishLib\PunishLib.csproj" />
 		<Reference Include="Newtonsoft.Json">

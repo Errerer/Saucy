@@ -1,9 +1,9 @@
 {
-  "Author": "Taurenkey (Puni.sh)",
+  "Author": "Taurenkey (Puni.sh),Errer(国服本地化)",
   "Name": "Saucy",
-  "Punchline": "When working for MGP is too much effort.",
-  "Description": "Automates certain Gold Saucer mini-games.",
-  "InternalName": "Saucy",
+  "Punchline": "当为金蝶游戏活动太费时间的时候！启动它！",
+  "Description": "自动执行某些金蝶小游戏,解除国服限制",
+  "InternalName": "SaucyX",
   "IconUrl": "https://love.puni.sh/resources/saucy.png",
   "RepoUrl": "https://github.com/PunishXIV/Saucy",
   "DalamudApiLevel": 9,
